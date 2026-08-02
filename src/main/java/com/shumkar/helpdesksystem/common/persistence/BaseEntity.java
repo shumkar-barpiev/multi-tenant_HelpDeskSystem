@@ -14,17 +14,10 @@ import java.util.UUID;
 @Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class BaseEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private UUID id;
-
-	@CreatedDate
-	@Column(name = "created_at", updatable = false)
-	private Instant createdAt;
+public abstract class BaseEntity extends AuditableEntity {
 
 	@LastModifiedDate
-	@Column(name = "updated_at", updatable = false)
+	@Column(name = "updated_at")
 	private Instant updatedAt;
 
 	@Column(name = "is_active", nullable = false)
