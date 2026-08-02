@@ -14,10 +14,10 @@ import java.util.List;
 @Setter
 @Table(name = "organizations")
 public class Organization extends BaseEntity {
-	@Column(nullable = false)
+	@Column(nullable = false, length = 200)
 	private String name;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false, unique = true, length = 100)
 	private String slug;
 
 	@Enumerated(EnumType.STRING)
