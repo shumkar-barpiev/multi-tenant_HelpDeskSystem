@@ -1,4 +1,4 @@
-package com.myexam.helpdesksystem;
+package com.shumkar.helpdesksystem;
 
 import org.springframework.boot.SpringApplication;
 
