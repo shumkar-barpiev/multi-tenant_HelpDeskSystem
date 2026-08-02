@@ -34,10 +34,10 @@ public class User extends BaseEntity {
 	private String email;
 
 	@Column(name = "password_hash", nullable = false, length = 255)
-	private String password_hash;
+	private String passwordHash;
 
 	@Column(name = "email_verified", nullable = false)
-	private boolean email_verified = false;
+	private boolean emailVerified = false;
 
 	@Column(name = "last_login_at")
 	private Instant lastLoginAt;
