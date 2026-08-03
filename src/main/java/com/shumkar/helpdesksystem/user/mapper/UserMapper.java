@@ -50,8 +50,8 @@ public class UserMapper {
 		}
 
 		User entity = new User();
-		entity.setUsername(request.getUsername());
-		entity.setEmail(request.getEmail());
+		entity.setUsername(request.getUsername().strip());
+		entity.setEmail(request.getEmail().strip().toLowerCase(java.util.Locale.ROOT));
 		entity.setPasswordHash(request.getPassword());
 		return entity;
 	}

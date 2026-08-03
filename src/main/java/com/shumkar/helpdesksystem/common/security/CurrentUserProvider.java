@@ -17,6 +17,7 @@ public class CurrentUserProvider {
 						.getAuthentication();
 
 		if (authentication == null
+				|| !authentication.isAuthenticated()
 				|| !(authentication.getPrincipal()
 				instanceof AuthenticatedUser user)) {
 			throw new AccessDeniedException(
@@ -29,5 +30,13 @@ public class CurrentUserProvider {
 
 	public UUID getCurrentUserId() {
 		return getCurrentUser().userId();
+	}
+
+	public UUID getCurrentOrganizationId() {
+		return getCurrentUser().organizationId();
+	}
+
+	public UUID getCurrentMembershipId() {
+		return getCurrentUser().membershipId();
 	}
 }

@@ -10,5 +10,7 @@ public interface JwtService {
 
 	String extractEmail(String token);
 
+	AuthenticatedUser extractAuthenticatedUser(String token);
+
 	boolean isTokenValid(String token);
 }

@@ -8,6 +8,8 @@ import java.util.UUID;
 
 public record AuthenticatedUser(
 		UUID userId,
+		UUID organizationId,
+		UUID membershipId,
 		String email,
 		Collection<? extends GrantedAuthority> authorities
 ) implements Principal {

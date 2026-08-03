@@ -5,7 +5,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -37,23 +39,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		String token = authorizationHeader.substring(7);
 
 		try {
-			/*
-			 * Later:
-			 * 1. Validate the token.
-			 * 2. Extract the user ID/email.
-			 * 3. Load the user.
-			 * 4. Create an Authentication object.
-			 * 5. Put it in SecurityContextHolder.
-			 */
-
-			filterChain.doFilter(request, response);
-
-		} catch (Exception exception) {
-			SecurityContextHolder.clearContext();
-
-			response.setStatus(
-					HttpServletResponse.SC_UNAUTHORIZED
+			AuthenticatedUser user = jwtService.extractAuthenticatedUser(token);
+			var authentication = UsernamePasswordAuthenticationToken.authenticated(
+					user,
+					null,
+					user.authorities()
 			);
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+		} catch (JwtException | IllegalArgumentException exception) {
+			SecurityContextHolder.clearContext();
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid access token");
+			return;
 		}
+
+		filterChain.doFilter(request, response);
 	}
 }

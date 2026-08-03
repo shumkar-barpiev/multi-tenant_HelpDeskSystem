@@ -173,12 +173,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean existsByEmail(String email) {
-		return userRepository.existsByEmail(email);
+		return userRepository.existsByEmailIgnoreCase(email.strip());
 	}
 
 	@Override
 	public boolean existsByUsername(String username) {
-		return userRepository.existsByUsername(username);
+		return userRepository.existsByUsernameIgnoreCase(username.strip());
 	}
 
 	private Authentication getAuth() {
